@@ -1,14 +1,16 @@
 ##  Football
 
-This small project can import football results by using a webcrawler and analyse the data in flask.
+This small project can import football results via API and analyse the data in flask.
 
-It was created to learn flask, web crawling, data processing and data visualization.  
+It was created to learn flask, API integration, data processing and data visualization.
+
+**Note:** The project has been migrated from web scraping to using API-Football.com. See [API_MIGRATION.md](API_MIGRATION.md) for details.  
 
 
 ### Features
 
 - flask generates an interactive GUI environment
-- extract the soccer results from the official DFB-website (https://www.dfb.de/index/)
+- extract soccer results from API-Football.com (German Bundesliga, 2. Bundesliga, 3. Liga)
 - format and save the data in CSV-files automatically
 - get season overviews 
 - create dynamic data diagrams
@@ -21,13 +23,26 @@ It was created to learn flask, web crawling, data processing and data visualizat
 
 ### First Steps: 
 
+#### Setup API Key
+
+1. Get a free API key from [RapidAPI API-Football](https://rapidapi.com/api-sports/api/api-football)
+2. Set environment variable: `export API_FOOTBALL_KEY="your_key"`
+3. Or edit `GET_Data_API.py` and add your key directly
+
+See [API_MIGRATION.md](API_MIGRATION.md) for detailed setup instructions.
+
 #### Import results
 
-- open ```main.py``` and choose the url for a league
+- open ```main.py``` and configure league and season:
+
+```python
+league_name = "1_Bundesliga"  # or "2_Bundesliga", "3_Liga"
+season = 2024
+```
 
 - run:
-```
-GET_ALL(url)
+```python
+GET_ALL_ROUNDS(league_name, season, max_rounds=34)
 ```
 
 - results will be saved in a CSV-file automatically (folder: CSV) 
@@ -36,7 +51,11 @@ GET_ALL(url)
 
 #### Select a data source 
 
-- open ```main.py``` and select the CSV-file you want to work with
+- open ```main.py``` and select the CSV-file you want to work with:
+
+```python
+file = "./CSV/1_Bundesliga_2024.csv"
+```
 
 ------------
 ------------
